@@ -40,7 +40,7 @@ $: terraform plan
 ```
 <p align="center">
   <a href="https://github.com/fmdlc/">
-    <img src="./img/render-plan.gif"/>
+    <img src="./img/plan.gif"/>
   </a>
 </p>
 
