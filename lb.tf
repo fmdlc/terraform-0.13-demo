@@ -1,20 +1,22 @@
 resource "aws_elb" "elb" {
-  name               = var.dc_elb
-  availability_zones = ["us-west-2a", "us-west-2b", "us-west-2c"]
+  name            = var.dc_elb
+  security_groups = [aws_security_group.trusted.id]
+  internal        = false
+  subnets         = [for s in local.subnet_ids_list : s]
 
   listener {
-    instance_port     = 80
-    instance_protocol = "http"
-    lb_port           = 80
-    lb_protocol       = "http"
+    instance_port     = local.elb_connection.backend_port
+    instance_protocol = local.elb_connection.backend_protocol
+    lb_port           = local.elb_connection.frontend_port
+    lb_protocol       = local.elb_connection.backend_protocol
   }
 
   health_check {
-    healthy_threshold   = 2
-    unhealthy_threshold = 2
-    timeout             = 3
-    target              = "HTTP:80/"
-    interval            = 30
+    healthy_threshold   = local.elb_connection.healthy_threshold
+    unhealthy_threshold = local.elb_connection.unhealthy_threshold
+    timeout             = local.elb_connection.healthcheck_timeout
+    target              = local.elb_connection.healthcheck_target
+    interval            = local.elb_connection.healthcheck_interval
   }
 
   cross_zone_load_balancing   = true
@@ -23,7 +25,7 @@ resource "aws_elb" "elb" {
   connection_draining_timeout = 400
 
   tags = {
-    Name      = "DC Solutions ELB"
+    Name      = "foobar"
     Terraform = "True"
   }
 }

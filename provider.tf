@@ -5,7 +5,15 @@
 #	$ aws config --profile <profile_name>
 #
 #------------------------------------------------------------------------------
-provider "aws" {
-  region  = var.aws_region
-  profile = "default"
+terraform {
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+      region = "us-east-1"
+    }
+    random = {
+      source = "hashicorp/random"
+    }
+  }
 }
+

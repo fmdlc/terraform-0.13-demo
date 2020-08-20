@@ -4,7 +4,7 @@
 #------------------------------------------------------------------------------
 terraform {
   backend "s3" {
-    bucket = "dcsolutions-tfstate"
+    bucket = "fdelacruz-tfstate"
     key    = "terraform.tfstate"
     region = "us-east-1"
   }

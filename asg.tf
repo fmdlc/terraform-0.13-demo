@@ -1,30 +1,21 @@
-locals {
-  asg_max = 5
-  asg_min = 2
-  asg_desired = 3
-}
-
 resource "aws_autoscaling_group" "asg" {
-  name                      = "dc-solutions"
-  max_size                  = local.asg_max
-  min_size                  = local.asg_min
+  name                      = "foobar"
+  max_size                  = local.asg_configuration.asg_max
+  min_size                  = local.asg_configuration.asg_min
   health_check_grace_period = 300
-  health_check_type         = "ELB"
-  desired_capacity          = local.asg_desired
-  force_delete              = true
+  health_check_type         = "EC2"
+  desired_capacity          = local.asg_configuration.asg_desired
+  force_delete              = local.asg_configuration.force_delete
+  vpc_zone_identifier       = [for s in local.subnet_ids_list: s]
+  load_balancers            = [aws_elb.elb.id]
   launch_configuration      = aws_launch_configuration.as_conf.name
-  vpc_zone_identifier       = [
-                              aws_subnet.main-us-east-1a.id,
-                              aws_subnet.main-us-east-1b.id,
-                              aws_subnet.main-us-east-1c.id
-                              ]
   timeouts {
     delete = "15m"
   }
 
   tag {
     key                 = "Name"
-    value               = "dc-solutions-webserver"
+    value               = "foobar"
     propagate_at_launch = true
   }
 }

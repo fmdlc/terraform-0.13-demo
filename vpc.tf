@@ -8,9 +8,8 @@
 #   - us-east-1b - 10.0.2.0/24
 #   - us-east-1c - 10.0.3.0/24
 #-------------------------------------------------------------------------
-
 resource "aws_vpc" "main" {
-  cidr_block           = "10.0.0.0/16"
+  cidr_block           = var.environment == "prod" ? "10.0.0.0/16" : "192.168.0.0/16"
   instance_tenancy     = "default"
   enable_dns_support   = true
   enable_dns_hostnames = true
@@ -19,35 +18,17 @@ resource "aws_vpc" "main" {
     Name      = "DCSolutions"
     Terraform = "True"
   }
+
 }
 
-resource "aws_subnet" "main-us-east-1a" {
+resource "aws_subnet" "main-us-east" {
+  for_each          = var.vpc_public_subnets
   vpc_id            = aws_vpc.main.id
-  cidr_block        = "10.0.1.0/24"
-  availability_zone = "us-east-1a"
+  cidr_block        = each.value
+  availability_zone = each.key
 
   tags = {
-    Name      = "subnet-us-esat-1a"
-    Terraform = "True"
-  }
-}
-
-resource "aws_subnet" "main-us-east-1b" {
-  vpc_id     = aws_vpc.main.id
-  cidr_block = "10.0.2.0/24"
-
-  tags = {
-    Name      = "subnet-us-esat-1b"
-    Terraform = "True"
-  }
-}
-
-resource "aws_subnet" "main-us-east-1c" {
-  vpc_id     = aws_vpc.main.id
-  cidr_block = "10.0.3.0/24"
-
-  tags = {
-    Name      = "subnet-us-esat-1c"
+    Name      = "subnet-${each.key}"
     Terraform = "True"
   }
 }
