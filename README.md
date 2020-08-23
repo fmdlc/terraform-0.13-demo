@@ -1,7 +1,3 @@
-<a href="https://github.com/fmdlc/">
-<img src="https://www.datocms-assets.com/2885/1588888056-terraformprimarylogofullcolorrgb.svg" width="200"/>
-</a>
-
 # Terraform-demo
 <img src="https://img.shields.io/github/last-commit/fmdlc/terraform-0.13-demo"/> <img src="https://img.shields.io/github/forks/fmdlc/terraform-0.13-demo"/> <img src="https://img.shields.io/github/repo-size/fmdlc/terraform-0.13-demo"/> 
 > This set of [Terraform](https://www.terraform.io/) HCL files, pretends to be only examples for training purposes. It's a straightforward exercise
