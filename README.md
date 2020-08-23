@@ -3,7 +3,7 @@
 </a>
 
 # Terraform-demo
-<img src="https://img.shields.io/github/last-commit/fmdlc/terraform-0.13-demo"/> <img src="https://img.shields.io/github/forks/fmdlc/terraform-0.13-demo"/> <a href="https://img.shields.io/github/repo-size/fmdlc/terraform-0.13-demo"/> 
+<img src="https://img.shields.io/github/last-commit/fmdlc/terraform-0.13-demo"/> <img src="https://img.shields.io/github/forks/fmdlc/terraform-0.13-demo"/> <img src="https://img.shields.io/github/repo-size/fmdlc/terraform-0.13-demo"/> 
 > This set of [Terraform](https://www.terraform.io/) HCL files, pretends to be only examples for training purposes. It's a straightforward exercise
 to introduce people into the Terraform world.
 
